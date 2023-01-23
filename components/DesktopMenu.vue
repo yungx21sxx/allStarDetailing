@@ -41,6 +41,7 @@
 		</div>
 		
 	</nav>
+	<div class="overlay"></div>
 	
 </template>
 
@@ -50,20 +51,23 @@ import {useServiceStore} from "~/store/servicesStore";
 
 const route = useRoute()
 
-const service = useServiceStore( )
+const service = useServiceStore()
 
 </script>
 
 <style scoped lang="scss">
-
+	.overlay {
+		height: 61px;
+	}
 	.menu {
 		padding: 10px;
-		background: rgba(255, 255, 255, .8);
-		backdrop-filter: blur(2px);
-		border-bottom: 1px solid #BEBEBE;
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 2px 2px 4px rgba(0,0,0,.2);
+		//border-bottom: 1px solid #BEBEBE;
 		position: fixed;
 		width: 100%;
 		z-index: 20;
+		height: 61px;
 		
 		&__logo {
 			width: 50px;

@@ -3,40 +3,53 @@
 	>
 		<div class="banner__overlay">
 			<div class="wrapper">
-				<article class="banner__content" :key="currentPage.id">
-					<div class="banner__header">
-						<h2 class="banner__title banner__title_white"
-						    v-if="currentPage.titleWhite !== ''"
-						>{{currentPage.titleWhite}}</h2>
-						<h1 class="banner__title banner__title_main"
-						    v-if="currentPage.titleMain !== ''"
-						>{{currentPage.titleMain}}</h1>
-					</div>
-					
-					<p class="banner__text"
-					    v-if="currentPage.text !== '' && typeof currentPage.text !== 'Array'"
-					>{{currentPage.text}}</p>
-					<ul class="banner__list" v-if="Array.isArray(currentPage.text)">
-						<li class="banner__list-item"
-						    v-for="item in currentPage.text"
-						>
-							{{item}}
-						</li>
-					</ul>
-					
-					
-					<button class="banner__btn">Записаться онлайн</button>
+				<transition-group name="mode-fade" >
+
+					<article class="banner__content"
+				         v-for="{
+				            titleMain, titleWhite, text, id
+				            } in pages"
+							:style="{
+									display: currentPage.id == id ? 'block' : 'none'
+							}"
+				         :key="id + 112"
+				    >
+                        <div class="banner__header">
+                            <h2 class="banner__title banner__title_white"
+                                v-if="titleWhite !== ''"
+                            >{{titleWhite}}</h2>
+                            <h1 class="banner__title banner__title_main"
+                                v-if="titleMain !== ''"
+                            >{{titleMain}}</h1>
+                        </div>
+
+                        <p class="banner__text"
+                            v-if="text !== '' && typeof text !== 'Array'"
+                        >{{text}}</p>
+                        <ul class="banner__list" v-if="Array.isArray(text)">
+                            <li class="banner__list-item"
+                                v-for="item in text"
+                            >
+                                {{item}}
+                            </li>
+                        </ul>
+
+
+                        <button class="banner__btn">Записаться онлайн</button>
 				
-				</article>
+				    </article>
+				</transition-group>
 			</div>
 		</div>
 		<transition-group name="mode-fade" >
-			<img src="~/assets/img/q7AwP7fm4XU.jpg" alt="" class="banner__img" v-if="currentPage.id === 1" >
-			<img src="~/assets/img/IMG_5930.jpg"  alt="" class="banner__img" v-if="currentPage.id === 2" >
-			<img src="~/assets/img/IMG_6349.jpg"  alt="" class="banner__img" v-if="currentPage.id === 3" >
-			
-			
-			
+			<img
+				 v-for="{img, titleMain, id} in pages"
+				 :src="img"
+				 :key="titleMain"
+				 v-show="currentPage.id === id"
+				 :alt="currentPage.id"
+				 class="banner__img"
+			>
 		</transition-group>
 		
 	</header>
@@ -45,9 +58,9 @@
 		     v-for="index in pages.length"
 		     :id="index"
 		     :class="{
-				 'active': +index === +currentPage.id
+				 'active': index === currentPage.id
 		     }"
-		     @click="chengeCurrent(index)"
+		     @click="changeIndexPrevent(index)"
 		></div>
 	</div>
 </template>
@@ -55,48 +68,63 @@
 <script setup>
 
 
-	const pages = [
+	const pages = ref([
 		{
 			titleWhite: "Детейлинг центр",
 			titleMain: "ALL STAR DETAILING",
 			text: "Рады приветствовать Вас на сайте нашего детейлинг центра! У нас можно заказать полный комплекс услуг направленных на внешнюю и внутреннию отделку Вашей машины. Гарантируем оперативность, высокое качество, доступную цену!\n",
 			service: "main",
+			img: "q7AwP7fm4XU.jpg",
 			id: 1
 		},
 		{
 			titleWhite: "Детейлинг центр",
 			titleMain: "ALL STAR DETAILING",
-			text: "Рады приветствовать Вас на сайте нашего детейлинг центра! У нас можно заказать полный комплекс услуг направленных на внешнюю и внутреннию отделку Вашей машины. Гарантируем оперативность, высокое качество, доступную цену!\n",
+			text: "Дарим скидку 30% на полную чистку салона.",
 			service: "main",
+			img: "IMG_5930.jpg",
 			id: 2
 		},
 	
 		{
 			titleWhite: "Детейлинг центр",
 			titleMain: "ALL STAR DETAILING",
-			text: "Рады приветствовать Вас на сайте нашего детейлинг центра! У нас можно заказать полный комплекс услуг направленных на внешнюю и внутреннию отделку Вашей машины. Гарантируем оперативность, высокое качество, доступную цену!\n",
+			text: "Рады приветсетейлинг центра! У нас можно заказать полный комплекс услуг направленных на внешнюю и внутреннию отделку Вашей машины. Гарантируем оперативность, высокое качество, доступную цену!\n",
 			service: "main",
+			img: "IMG_6349.jpg",
 			id: 3
 		},
-	]
+	])
 	
-	const currentPage = ref(pages[0])
+	const currentPage = ref(pages.value[0])
+	let interval = null
+    const sliderIndex = ref(1)
+    const timeout = 4000
+
+
+	const changeCurrent = (id) => {
+        currentPage.value = pages.value.filter(i => i.id === id)[0]
+    }
 	
-	const chengeCurrent = (id) => currentPage.value = pages.filter(i => i.id === id)[0]
-	
-	const sliderIndex = ref(1)
+    const changeIndexPrevent = (id) => {
+        changeCurrent(id)
+        clearInterval(interval)
+        interval = initInterval(timeout)
+    }
+
+    const initInterval = (timeout) => setInterval(() => {
+        changeCurrent(sliderIndex.value)
+        if (sliderIndex.value < pages.value.length) {
+            sliderIndex.value += 1
+        } else {
+            sliderIndex.value = 1
+        }
+
+    }, timeout)
+
 	
 	onMounted(() => {
-		setInterval(() => {
-			chengeCurrent(sliderIndex.value)
-			console.log(sliderIndex.value)
-			if (sliderIndex.value < pages.length) {
-				sliderIndex.value += 1
-			} else {
-				sliderIndex.value = 1
-			}
-
-		}, 3000)
+		interval = initInterval(timeout)
 	})
 	
 
@@ -104,14 +132,15 @@
 
 <style scoped lang="scss">
 .mode-fade-enter-active, .mode-fade-leave-active {
-	transition: opacity .5s ease
+	transition: opacity .4s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .mode-fade-enter-from, .mode-fade-leave-to {
 	opacity: 0
 }
 	.banner {
-		height: 610px;
+		height: 550px;
+
 		background: black;
 
 		//@media screen and (min-width: 1200px) {
@@ -145,7 +174,7 @@
 			font-size: 16px;
 			line-height: 28px;
 			color: white;
-			width: 490px;
+			max-width: 490px;
 			margin-bottom: 20px;
 			margin-top: 7px;
 		}
@@ -197,7 +226,7 @@
 		&__img {
 			width: 100%;
 			object-fit: cover;
-			height: 610px;
+			height: 100%;
 			position: absolute;
 			z-index: 1;
 		}
@@ -207,7 +236,7 @@
 		width: 100%;
 		display: flex;
 		justify-content: center;
-		margin: 10px;
+		margin: 10px 0;
 		gap: 10px;
 		&__item {
 			width: 10px;

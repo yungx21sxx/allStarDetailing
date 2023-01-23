@@ -32,7 +32,7 @@
 			
 			</div>
 			
-			<div class="footer__block">
+			<div class="footer__block mail">
 				<div class="footer__header">
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M21.75 3.75H2.25C1.83516 3.75 1.5 4.08516 1.5 4.5V19.5C1.5 19.9148 1.83516 20.25 2.25 20.25H21.75C22.1648 20.25 22.5 19.9148 22.5 19.5V4.5C22.5 4.08516 22.1648 3.75 21.75 3.75ZM20.8125 6.34687V18.5625H3.1875V6.34687L2.54063 5.84297L3.46172 4.65938L4.46484 5.43984H19.5375L20.5406 4.65938L21.4617 5.84297L20.8125 6.34687V6.34687ZM19.5375 5.4375L12 11.2969L4.4625 5.4375L3.45938 4.65703L2.53828 5.84062L3.18516 6.34453L11.1914 12.5695C11.4217 12.7484 11.7049 12.8455 11.9965 12.8455C12.2881 12.8455 12.5713 12.7484 12.8016 12.5695L20.8125 6.34687L21.4594 5.84297L20.5383 4.65938L19.5375 5.4375Z" fill="black"/>
@@ -57,13 +57,39 @@ export default {
 
 .footer {
 	background: #F7F7F7;
-	height: 300px;
+	min-height: 300px;
+	height: 100%;
+	@media screen and (max-width: 900px) {
+		grid-template-columns: 1fr;
+		justify-content: center;
+
+		&__map {
+			height: 400px !important;
+		}
+
+		&__info {
+			justify-content: center !important;
+			min-height: 200px;
+			grid-template-columns: 1fr !important;
+			gap: 15px;
+
+		}
+
+		&__block {
+			margin-left: 20px;
+
+			&.mail {
+				margin-top: 10px;
+			}
+		}
+	}
 	
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 20px;
 	position: relative;
 	width: 100%;
+
 	
 	&__map {
 		width: 100%;
@@ -72,6 +98,7 @@ export default {
 	
 	&__block {
 		height: fit-content;
+
 	}
 	
 	&__header {
@@ -104,6 +131,9 @@ export default {
 		grid-template-rows: 70px 70px;
 		justify-content: end;
 		margin-top: 40px;
+
+
+
 		
 		
 	}

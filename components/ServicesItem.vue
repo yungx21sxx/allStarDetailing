@@ -13,13 +13,10 @@
 					>{{promo}}</li>
 				</ul>
 				<div class="service__footer">
-					<span class="service__text service__time">Время: {{service.time}}</span>
-					<var class="service__price">{{service.price}}</var>
+					<span class="service__time">Время: {{service.time}}</span>
+					<span class="service__price">{{service.price}}</span>
 				</div>
 			</article>
-			
-			
-			
 		</div>
 	</NuxtLink>
 </template>
@@ -42,62 +39,98 @@
 
 <style scoped lang="scss">
 
+
+@media screen and (max-width: 900px) {
+	.service {
+
+		&__price {
+			font-size: 1rem !important;
+		}
+
+		&__text {
+			font-size: .9rem !important;
+			line-height: 20px !important;
+		}
+
+
+		&__bg {
+			height: 225px !important;
+		}
+
+	}
+
+
+}
+
 	.service {
 		background: none;
 		text-decoration: none;
 		box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
-		border-radius: 7px;
+
+
 		transition: .3s ease;
+		border-radius: 5px;
+
+
+
 		&:hover {
 			box-shadow: 5px 5px 10px rgba(0, 0, 0, .7);
 		}
 		&__time {
 			letter-spacing: 1.2px;
+			font-style: normal;
+			font-weight: 300;
+			font-size: 1rem;
+			color: #F7F7F7;
+			position: relative;
+			bottom: 3px;
 		}
 		&__bg {
-			height: 300px;
+			height: 260px;
 			background-position: center center;
 			background-size: cover;
-			border-radius: 7px;
+			border-radius: 5px;
 		}
 		
 		&__body {
 			width: 100%;
 			height: 100%;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba(0, 0, 0, 0.7);
+			//backdrop-filter: blur(1px);
 			padding: 10px 15px;
 			display: flex;
 			flex-direction: column;
 			border-radius: 7px;
+			//font-size: 10rem;
 		}
 		
 		&__title {
 			font-style: normal;
 			
 			font-weight: 400;
-			font-size: 22px;
+			font-size: 1.1rem;
 			
 			color: white;
 		
 		}
 		
 		&__header {
-			height: 70px;
-			border-bottom: 3px solid #CC9933;
+			height: 61px;
+			border-bottom: 2px solid #CC9933;
 			display: flex;
 			align-items: center;
 		}
 		
 		&__list {
 			margin-left: 20px;
-			margin-top: 15px;
+			margin-top: 10px;
 		}
 		
 		&__text {
 			font-style: normal;
 			font-weight: 300;
-			font-size: 18px;
-			line-height: 30px;
+			font-size: .9rem;
+			line-height: 23px;
 			color: #F7F7F7;
 		}
 		
@@ -105,13 +138,13 @@
 			margin-top: auto;
 			display: flex;
 			justify-content: space-between;
+			align-items: flex-end;
 		}
 		
 		&__price {
 			font-style: normal;
 			font-weight: 400;
-			font-size: 24px;
-			line-height: 30px;
+			font-size: 1.2rem;
 			color: #CC9933;
 			
 		}

@@ -1,6 +1,7 @@
 <template>
-	<DesktopMenu/>
-	<modal/>
+	<MobileMenu v-if="service.isMobile"/>
+	<DesktopMenu v-else/>
+	<Modal/>
 	<main>
 		<NuxtPage/>
 	</main>
@@ -13,22 +14,26 @@
 import DesktopMenu from "~/components/DesktopMenu.vue";
 import Footer from "~/components/Footer.vue";
 import Modal from "~/components/Modal.vue";
+import {useServiceStore} from "~/store/servicesStore";
 
-const route = useRoute()
+const service = useServiceStore()
 
-watch(
-	() => route.fullPath,
-	() => {
-		window.scroll(0,0)
 
-	}
-)
+onMounted(() => {
+	service.setMobile(window.innerWidth < 900)
+	window.addEventListener('resize', event => {
+		service.setMobile(window.innerWidth < 900)
+	})
+})
+
 
 
 </script>
 
 <style lang="scss">
 	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+
+
 	 * {
 		 margin: 0;
 		 padding: 0;
@@ -50,13 +55,5 @@ watch(
 		min-height: 80vh;
 	}
 
-	.page-enter-active,
-	.page-leave-active {
-		transition: all 0.4s;
-	}
-	.page-enter-from,
-	.page-leave-to {
-		opacity: 0;
-		filter: blur(1rem);
-	}
+
 </style>

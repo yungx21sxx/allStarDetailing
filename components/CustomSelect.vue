@@ -39,11 +39,7 @@ export default {
 	}),
 	methods: {
 		emitValue(event) {
-			
-			
 				this.$emit('update:param', this.chosenParam.title)
-			
-			
 		}
 	},
 	mounted() {
