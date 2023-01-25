@@ -40,8 +40,6 @@
 				</div>
 
 			</section>
-			
-
 <!--				<img :src="service.img" :alt="service.title">-->
                 <carousel-photos :photos="service.photos"/>
 
