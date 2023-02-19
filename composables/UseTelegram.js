@@ -1,6 +1,6 @@
 export default () => {
-	const token = '6193438455:AAG9HZ3kPfSEdT73gboU4X_Dokpk-h8NTvk\n'
-	const chatID = -1001746507788
+	const token = ''
+	const chatID = 0
 	const getUrl = (text) => `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatID}&text=${text}`
 	const requestForCall = (form) => {
 		const {name, phone, question} = form
