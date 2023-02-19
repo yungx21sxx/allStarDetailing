@@ -15,10 +15,10 @@
 <script setup>
 
 	import ServicesItem from "~/components/ServicesItem.vue";
-	import {useServiceStore} from "~/store/servicesStore";
-	
+	import {services} from "~/store/ServicesData";
+
 	const route = useRoute()
-	const {services} = useServiceStore()
+
 
 	
 	const props = defineProps({

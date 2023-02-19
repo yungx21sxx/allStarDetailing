@@ -1,12 +1,45 @@
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import {createVuetify} from "vuetify";
+import {aliases, mdi} from 'vuetify/iconsets/mdi-svg'
+import {
+	VBtn,
+	VCard,
+	VCardText,
+	VCardTitle,
+	VCarousel, VCarouselItem, VDialog,
+	VImg, VLazy, VParallax, VSelect,
+	VTextarea,
+	VTextField
+} from "vuetify/components";
 
-export default defineNuxtPlugin(nuxtApp => {
-    const vuetify = createVuetify({
-        components,
-        directives,
-    })
-
-    nuxtApp.vueApp.use(vuetify)
+export default defineNuxtPlugin((app) => {
+	const vuetify = createVuetify({
+		ssr: true,
+		theme: {
+			defaultTheme: 'light',
+		},
+		components: [
+			VBtn,
+			VCard,
+			VTextField,
+			VTextarea,
+			VCardText,
+			VCardTitle,
+			VImg,
+			VCarousel,
+			VCarouselItem,
+			VDialog,
+			VSelect,
+			VLazy,
+			VParallax
+		],
+		directives: [],
+		icons: {
+			defaultSet: 'mdi',
+			aliases,
+			sets: {
+				mdi,
+			},
+		},
+	})
+	app.vueApp.use(vuetify);
 })

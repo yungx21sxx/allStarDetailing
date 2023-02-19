@@ -10,9 +10,11 @@
 
 		<img src="~/assets/img/Logo.svg" alt="" class="menu__logo">
 		<svg class="menu__phone" width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg"
-             @click="service.openModal('')"
-        >
-			<path d="M13.5121 7.58001L8.86044 2.21064C8.32419 1.59189 7.34107 1.59464 6.71819 2.21889L2.89294 6.05101C1.75444 7.19089 1.42857 8.88351 2.08719 10.2406C6.02192 18.3875 12.5923 24.967 20.7336 28.9131C22.0893 29.5718 23.7806 29.2459 24.9191 28.106L28.7801 24.2381C29.4057 23.6125 29.4071 22.6239 28.7828 22.0876L23.3928 17.4608C22.8291 16.9768 21.9532 17.04 21.3881 17.6065L19.5126 19.4848C19.4166 19.5854 19.2902 19.6517 19.1528 19.6736C19.0154 19.6954 18.8747 19.6716 18.7522 19.6058C15.6866 17.8404 13.1436 15.2941 11.3822 12.2261C11.3162 12.1034 11.2923 11.9624 11.3142 11.8249C11.3361 11.6873 11.4025 11.5606 11.5032 11.4644L13.3732 9.59301C13.9397 9.02376 14.0016 8.14376 13.5121 7.57864V7.58001Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+		     @click="modal.openModal('')"
+		>
+			<path
+				 d="M13.5121 7.58001L8.86044 2.21064C8.32419 1.59189 7.34107 1.59464 6.71819 2.21889L2.89294 6.05101C1.75444 7.19089 1.42857 8.88351 2.08719 10.2406C6.02192 18.3875 12.5923 24.967 20.7336 28.9131C22.0893 29.5718 23.7806 29.2459 24.9191 28.106L28.7801 24.2381C29.4057 23.6125 29.4071 22.6239 28.7828 22.0876L23.3928 17.4608C22.8291 16.9768 21.9532 17.04 21.3881 17.6065L19.5126 19.4848C19.4166 19.5854 19.2902 19.6517 19.1528 19.6736C19.0154 19.6954 18.8747 19.6716 18.7522 19.6058C15.6866 17.8404 13.1436 15.2941 11.3822 12.2261C11.3162 12.1034 11.2923 11.9624 11.3142 11.8249C11.3361 11.6873 11.4025 11.5606 11.5032 11.4644L13.3732 9.59301C13.9397 9.02376 14.0016 8.14376 13.5121 7.57864V7.58001Z"
+				 stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 		</svg>
 
 	</div>
@@ -21,31 +23,29 @@
 		<nav class="menu__body catalog" v-if="toggleMenu">
 			<div @click="goToSection('/')" class="menu__link">Главная</div>
 			<div @click="goToSection('/services/all')" class="menu__link">Услуги</div>
-			<div @click="goToSection('/')" class="menu__link">Контакты</div>
-			<div @click="goToSection('/')" class="menu__link">Наши работы</div>
+			<div @click="goToSection('/clients')" class="menu__link">Наши работы</div>
+			<div @click="goToSection('/contacts')" class="menu__link">Контакты</div>
 		</nav>
 	</transition>
-
 </template>
 
 <script setup>
 
 
-import {useServiceStore} from "~/store/servicesStore";
+import {useModalStore} from "~/store/modalStore";
 
 const toggler = ref(null)
 const router = useRouter()
 
 const toggleMenu = ref(false)
 
-const service = useServiceStore()
+const modal = useModalStore()
 
 
 const goToSection = (link) => {
 	router.push(link)
 	toggler.value.click()
 }
-
 
 
 </script>
@@ -55,6 +55,7 @@ const goToSection = (link) => {
 .overlay {
 	height: 69px;
 }
+
 .slide-fade-enter-active {
 	transition: all 0.3s ease-out;
 }
@@ -123,10 +124,10 @@ $grey: #4a4a4a;
 
 	&__logo {
 		position: absolute;
-		left:0;
-		right:0;
-		margin-left:auto;
-		margin-right:auto;
+		left: 0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
 		height: 47px;
 		top: 10px;
 	}
@@ -153,6 +154,7 @@ $grey: #4a4a4a;
 		font-size: 20px;
 		color: black;
 		text-decoration: none;
+
 		&:hover, &:active {
 			color: #CC9933;
 		}
@@ -161,9 +163,9 @@ $grey: #4a4a4a;
 
 }
 
-.toggler{
+.toggler {
 	/* ALWAYS KEEPING THE TOGGLER OR THE CHECKBOX ON TOP OF EVERYTHING :  */
-	z-index:2;
+	z-index: 2;
 	height: 50px;
 	width: 50px;
 	position: absolute;
@@ -173,7 +175,7 @@ $grey: #4a4a4a;
 	opacity: 0;
 }
 
-.hamburger{
+.hamburger {
 
 	top: 0;
 	left: 0;
@@ -190,41 +192,41 @@ $grey: #4a4a4a;
 
 /* CREATING THE MIDDLE LINE OF THE HAMBURGER : */
 
-.hamburger > div{
+.hamburger > div {
 	position: relative;
 	top: 0;
 	left: 0;
 	background: $grey;
 	height: 4px;
 	width: 60%;
-	transition: all  0.4s ease;
+	transition: all 0.4s ease;
 }
 
 /* CREATING THE TOP AND BOTTOM LINES :
 TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 
 .hamburger > div::before,
-.hamburger > div::after{
+.hamburger > div::after {
 	content: '';
 	position: absolute;
 	top: -10px;
 	background: $grey;
 	width: 100%;
 	height: 4px;
-	transition: all  0.4s ease;
+	transition: all 0.4s ease;
 }
 
-.hamburger > div::after{
+.hamburger > div::after {
 	top: 10px;
 }
 
 /* IF THE TOGGLER IS IN ITS CHECKED STATE, THEN SETTING THE BACKGROUND OF THE MIDDLE LAYER TO COMPLETE BLACK AND OPAQUE :  */
 
-.toggler:checked + .hamburger > div{
-	background: rgba(0,0,0,0);
+.toggler:checked + .hamburger > div {
+	background: rgba(0, 0, 0, 0);
 }
 
-.toggler:checked + .hamburger > div::before{
+.toggler:checked + .hamburger > div::before {
 	top: 0;
 	transform: rotate(45deg);
 	background: black;
@@ -232,7 +234,7 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 
 /* AND ROTATING THE TOP AND BOTTOM LINES :  */
 
-.toggler:checked + .hamburger > div::after{
+.toggler:checked + .hamburger > div::after {
 	top: 0;
 	transform: rotate(135deg);
 	background: black;
@@ -242,18 +244,10 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 /* MAIN MENU WITH THE WHITE BACKGROUND AND THE TEXT :  */
 
 
-
 /* IF THE TOGGLER IS CHECKED, THEN INCREASE THE WIDTH OF THE MENU TO 30% , CREATING A SMOOTH EFFECT :  */
 
 
-
-
 /* STYLING THE LIST :  */
-
-
-
-
-
 
 
 </style>

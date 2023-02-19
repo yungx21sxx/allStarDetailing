@@ -1,27 +1,29 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "postinstall": "nuxt prepare",
-    "yarn": "yarn add @mdi/font",
-    "preview": "npx serve -s .output/public"
-  },
-  "devDependencies": {
-    "@nuxt/image": "^0.7.1",
-    "@nuxtjs/vuetify": "^1.12.3",
-    "nuxt": "3.0.0"
-  },
-  "dependencies": {
-    "@mdi/font": "^7.1.96",
-    "@pinia/nuxt": "^0.4.6",
-    "pinia": "^2.0.29",
-    "sass": "^1.56.1",
-    "vuetify": "^3.1.2",
-    "yarn": "^1.22.19"
-  },
-  "overrides": {
-    "vue": "latest"
-  }
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"reset": "rm -rf .nuxt node_modules .output package-lock.json",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"devDependencies": {
+		"@averjs/nuxt-compression": "^1.2.2",
+		"@babel/runtime-corejs3": "^7.20.13",
+		"@kevinmarrec/nuxt-pwa": "^0.13.0",
+		"@nuxtjs/critters": "^0.4.0",
+		"@nuxtjs/google-fonts": "^3.0.0-1",
+		"@pinia/nuxt": "^0.4.6",
+		"@vueuse/head": "^1.0.23",
+		"core-js": "3",
+		"nuxt": "^3.2.2",
+		"nuxt-simple-sitemap": "^1.0.6",
+		"sass": "^1.58.1",
+		"sass-loader": "^13.2.0",
+		"vite-plugin-vuetify": "^1.0.2",
+		"vuetify": "latest"
+	},
+	"dependencies": {
+		"pinia": "^2.0.30"
+	}
 }

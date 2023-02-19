@@ -2,14 +2,18 @@
 	<NuxtLink class="service"
 	          :to="'/service/' + service.id"
 	>
-		<div class="service__bg" ref="bg">
+		<v-img
+			 cover
+			 :src="props.service.img"
+			 :alt="props.service.title"
+			 class="service__bg"
+		>
 			<article class="service__body">
 				<div class="service__header">
 					<h2 class="service__title">{{service.title}}</h2>
 				</div>
 				<ul class="service__list">
 					<li class="service__text" v-for="promo in service.promoList"
-					
 					>{{promo}}</li>
 				</ul>
 				<div class="service__footer">
@@ -17,17 +21,12 @@
 					<span class="service__price">{{service.price}}</span>
 				</div>
 			</article>
-		</div>
+		</v-img>
 	</NuxtLink>
 </template>
 
 <script setup>
-	const bg = ref(null)
-	
-	onMounted(() => {
-		bg.value.style.backgroundImage = `url(${props.service.img})`
-	})
-	
+
 	const props = defineProps({
 		service: {
 			required: true,
@@ -80,7 +79,7 @@
 			letter-spacing: 1.2px;
 			font-style: normal;
 			font-weight: 300;
-			font-size: 1rem;
+			font-size: 0.8rem;
 			color: #F7F7F7;
 			position: relative;
 			bottom: 3px;
@@ -107,8 +106,8 @@
 		&__title {
 			font-style: normal;
 			
-			font-weight: 400;
-			font-size: 1.1rem;
+			font-weight: 500;
+			font-size: 1rem;
 			
 			color: white;
 		
