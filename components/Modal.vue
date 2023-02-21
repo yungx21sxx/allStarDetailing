@@ -22,25 +22,30 @@
 						Оставьте свои данные и пожелания к работе, чтобы записаться. Вам перезвонит первый
 						освободившийся специалсит.
 					</p>
-						<v-select
-							 v-model="chosenServices"
-							 :items="servicesList"
-							 chips
-							 clearable
-							 color="#c93"
-							 density="compact"
-							 label="Выберите услуги"
-							 multiple
-							 variant="outlined"
-						></v-select>
+					<v-select
+						 v-model="chosenServices"
+						 :items="servicesList"
+						 chips
+						 clearable
+						 color="#c93"
+						 density="compact"
+						 label="Выберите услуги"
+						 multiple
+						 variant="outlined"
+						 required
+					></v-select>
 
-					<PhoneInput v-model="phone"/>
+					<PhoneInput v-model="phone"
+					            variant="outlined"
+					            required
+					/>
 					<v-text-field
 						 v-model="name"
 						 color="#c93"
 						 density="compact"
 						 label="Как Вас зовут?"
 						 variant="outlined"
+						 required
 					></v-text-field>
 					<v-text-field
 						 v-model="date"
@@ -48,6 +53,7 @@
 						 label="На какое число хотели бы записаться?"
 						 type="date"
 						 variant="outlined"
+						 required
 					></v-text-field>
 					<v-textarea v-model="question"
 					            clearable
@@ -123,7 +129,7 @@ const submit = async () => {
 		isFetched.value = true
 		submitBtnText.value = 'Вы успешно записались'
 		resolve()
-	}, 500))
+	}, 300))
 	await new Promise(resolve => setTimeout(() => {
 		modal.closeModal()
 		reset()
@@ -132,11 +138,12 @@ const submit = async () => {
 
 }
 
-
 watch(
-	 () => modal.isOpen,
-	 (isOpen) => {
-		 if (!isOpen) {
+	 () => modal.service,
+	 (service) => {
+		 if (service !== '') {
+			 chosenServices.value = [service]
+		 } else {
 			 chosenServices.value = []
 		 }
 	 }

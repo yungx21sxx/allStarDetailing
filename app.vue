@@ -27,6 +27,11 @@
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
 
+$desktop-menu-height: 61px;
+$mobile-menu-height: 69px;
+
+$footer-height: 300px;
+
 .mobile {
 	display: none !important;
 	@media screen and (max-width: 900px) {

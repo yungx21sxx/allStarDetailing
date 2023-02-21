@@ -6,19 +6,6 @@ export default defineNuxtConfig({
 	build: {
 		transpile: ["vuetify"],
 		analyze: true,
-		babel: {
-			// envName: server, client, modern
-			presets({ envName }) {
-				return [
-					[
-						'@nuxt/babel-preset-app',
-						{
-							corejs: { version: 3 }
-						}
-					]
-				]
-			}
-		}
 	},
 	vite: {
 		ssr: {

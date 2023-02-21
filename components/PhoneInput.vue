@@ -3,9 +3,9 @@
 		 ref="phoneInput"
 		 v-model="model"
 		 color="#c93"
-		 density="compact"
+		 :density="density"
 		 label="Номер телефона"
-		 variant="outlined"
+		 :variant="variant"
 	></v-text-field>
 
 </template>
@@ -15,6 +15,14 @@ const props = defineProps({
 	modelValue: {
 		type: [String, Number],
 		default: ''
+	},
+	density: {
+		type: String,
+		default: 'compact'
+	},
+	variant: {
+		type: String,
+		default: "outlined"
 	}
 })
 const phoneInput = ref(null)

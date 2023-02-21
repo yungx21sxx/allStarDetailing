@@ -40,6 +40,7 @@
 						</svg>
 						<a class="footer__title" href="tel:+79119470777">+7 (911) 947-07-77</a>
 					</div>
+					<a class="footer__title footer__title_phone" style="padding-left: 27px;" href="tel:+79992000412">+7 (999) 200-04-12</a>
 
 				</div>
 
@@ -55,13 +56,13 @@
 			<div class="footer__soc-networks">
 				<h2 class="footer__title_promo">Мы в соцсетях</h2>
 				<div class="footer__flex">
-					<a class="footer__link" href="https://www.youtube.com/@allstardetailing">
-						<img alt="" src="/youtube.svg">
+					<a class="footer__link" href="https://t.me/allstardetailing">
+						<img alt="" src="/telegram.svg">
 					</a>
 					<a class="footer__link" href="https://instagram.com/allstardetailng?igshid=YmMyMTA2M2Y=">
 						<img alt="" src="/inst.svg">
 					</a>
-					<a class="footer__link" href="https://vk.link/allstardetailing">
+					<a class="footer__link" href="https://vk.com/allstardetailing">
 						<img alt="" src="/vk.svg">
 					</a>
 				</div>

@@ -46,6 +46,7 @@
 						</svg>
 						<a class="info__title" href="tel:+79119470777">+7 (911) 947-07-77</a>
 					</div>
+					<a class="info__title info__title_phone" style="padding-left: 27px;" href="tel:+79992000412">+7 (999) 200-04-12</a>
 
 				</div>
 
@@ -80,17 +81,37 @@
 						>
 							<v-card-title style="color: #CC9933; font-weight: 600">Форма обратной связи</v-card-title>
 							<v-card-text>
-								<form action="" class="banner__form">
-									<v-text-field label="Имя" variant="solo" color="#CC9933"></v-text-field>
-									<v-text-field label="Телефон" variant="solo" color="#CC9933"></v-text-field>
-									<v-textarea clearable label="Ваш вопрос" variant="solo" color="#CC9933"></v-textarea>
-									<v-btn type="submit"
-									       block
-									       color="#CC9933"
-									       size="large"
-									       variant="elevated"
-									>Отправить
-									</v-btn>
+								<form @submit.prevent="submit" class="banner__form">
+									<v-text-field label="Имя"
+									              variant="solo"
+									              color="#CC9933"
+									              v-model="name"
+									              required
+									></v-text-field>
+									<phone-input
+									              variant="solo"
+									              density="default"
+									              color="#CC9933"
+									              v-model="phone"
+									              required
+									></phone-input>
+									<v-textarea
+										 clearable
+										 label="Ваш вопрос (не обязательно)"
+										 variant="solo"
+										 color="#CC9933"
+										 v-model="question"
+									></v-textarea>
+									<v-btn
+										 :disabled="loading"
+										 :loading="loading"
+										 block
+										 class="modal__btn"
+										 color="#c93"
+										 size="large"
+										 type="submit"
+										 variant="elevated"
+									>{{ submitBtnText }}</v-btn>
 								</form>
 							</v-card-text>
 
@@ -112,6 +133,44 @@
 		</div>
 	</div>
 </template>
+
+
+<script setup>
+const phone = ref("")
+const name = ref("")
+const question = ref("")
+const submitBtnText = ref('Отправить заявку')
+const isFetched = ref(false)
+const loading = ref(false)
+
+const {requestForCall} = useTelegram()
+
+const reset = () => {
+	phone.value = name.value = question.value = ""
+	submitBtnText.value = 'Отправить заявку'
+}
+
+const submit = async () => {
+	loading.value = true
+	await requestForCall({
+		phone: phone.value,
+		name: name.value,
+		question: question.value
+	})
+	await new Promise(resolve => setTimeout(() => {
+		loading.value = false
+		isFetched.value = true
+		submitBtnText.value = 'Вы успешно записались'
+		resolve()
+	}, 500))
+	await new Promise(resolve => setTimeout(() => {
+		reset()
+		resolve()
+	}, 1000))
+
+}
+
+</script>
 
 
 <style scoped lang="scss">
